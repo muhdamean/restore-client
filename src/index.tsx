@@ -5,7 +5,6 @@ import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { unstable_HistoryRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from 'history';
-import { StoreProvider } from './app/context/StoreContext';
 import { Provider } from 'react-redux';
 import { store } from './app/store/configureStore';
 
@@ -17,11 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router history={history} >
-      <StoreProvider>
+      {/* <StoreProvider> */}
         <Provider store={store}>
           <App />
         </Provider>
-      </StoreProvider>
+      {/* </StoreProvider> */}
     </Router>
   </React.StrictMode>
 );
