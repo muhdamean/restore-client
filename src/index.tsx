@@ -7,8 +7,11 @@ import { unstable_HistoryRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { store } from './app/store/configureStore';
+import { fetchProductsAsync } from './features/catalog/catalogSlice';
 
 export const history=createBrowserHistory();
+
+store.dispatch(fetchProductsAsync());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
