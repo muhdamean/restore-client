@@ -46,7 +46,7 @@ export const basketSlice=createSlice({
         //     if(itemIndex===-1 || itemIndex===undefined) return;
         //     state.basket!.items[itemIndex].quantity -=quantity;
         //     if(state.basket?.items[itemIndex].quantity===0) 
-        //         state.basket.items.splice(itemIndex,1);
+        //        state.basket.items.splice(itemIndex,1);
         // }
     },
     extraReducers:(builder=>{
