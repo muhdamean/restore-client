@@ -9,16 +9,28 @@ interface CatalogState{
     status:string;
     brands:string[];
     types:string[];
-    productsParams:ProductParams;
+    productParams:ProductParams;
 }
 
 const productsAdapter=createEntityAdapter<Product>();
 
-export const fetchProductsAsync=createAsyncThunk<Product[]>(
+function getAxiosParams(productParams:ProductParams){
+    const params=new URLSearchParams();
+    params.append('pageNumber',productParams.pageNumber.toString());
+    params.append('pageSize',productParams.pageSize.toString());
+    params.append('orderBy',productParams.orderBy);
+    if(productParams.searchTerm) params.append('searchTerm',productParams.searchTerm);
+    if(productParams.brands) params.append('brands',productParams.brands.toString());
+    if(productParams.types) params.append('brands',productParams.types.toString());
+    return params;
+}
+
+export const fetchProductsAsync=createAsyncThunk<Product[], void, {state:RootState}>(
     'catalog/fetchProductsAsync',
     async(_, thunkAPI)=>{
+        const params=getAxiosParams(thunkAPI.getState().catalog.productParams);
         try{
-            return await agent.Catalog.list();
+            return await agent.Catalog.list(params);
         }catch(error:any){
             return thunkAPI.rejectWithValue({error: error.data})
         }
@@ -63,15 +75,15 @@ export const catalogSlice=createSlice({
         status:'idle',
         brands:[],
         types:[],
-        productsParams:initParams()
+        productParams:initParams()
     }),
     reducers:{
         setProductParams:(state, action)=>{
             state.productsLoaded=false;
-            state.productsParams={...state.productsParams, ...action.payload};
+            state.productParams={...state.productParams, ...action.payload};
         },
         resetProductParams:(state)=>{
-            state.productsParams=initParams();
+            state.productParams=initParams();
         }
     },
     extraReducers: (builder=>{
