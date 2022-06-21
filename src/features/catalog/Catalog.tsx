@@ -22,7 +22,7 @@ export default function Catalog(){
 
   useEffect(()=>{
     if(!productsLoaded) dispatch(fetchProductsAsync());
-  },[productsLoaded,dispatch]) //adding empty array [] stands for !IsPostBack, should not re-render on whenever the content load. render once
+  },[productsLoaded,dispatch]) //adding empty array [] stands for !IsPostBack, i.e. should not re-render on whenever the content load. render once
 
   useEffect(()=>{
     if(!filtersLoaded) dispatch(fetchFilters());
