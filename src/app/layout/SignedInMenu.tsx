@@ -1,13 +1,11 @@
 import { Button, Menu, MenuItem } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { signOut } from "../../features/account/accountSlice";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 
 export default function SignedInMenu(){
     const dispatch=useAppDispatch();
     const {user}=useAppSelector(state=>state.account);
-    const navigate=useNavigate();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
   
@@ -18,10 +16,10 @@ export default function SignedInMenu(){
         setAnchorEl(null);
     };
 
-    const handleSignOut = () => {
-        dispatch(signOut());
-        navigate('/');
-    };
+    // const handleSignOut = () => {
+    //     dispatch(signOut());
+    //     navigate('/');
+    // };
 
   return (
     <>
@@ -39,7 +37,7 @@ export default function SignedInMenu(){
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My orders</MenuItem>
-        <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+        <MenuItem onClick={()=>dispatch(signOut())}>Logout</MenuItem>
       </Menu>
     </>
   );
