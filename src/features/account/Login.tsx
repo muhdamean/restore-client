@@ -32,12 +32,6 @@ export default function Login() {
       }catch(error){
         console.log(error);
       }
-       
-    //    try{
-    //         await  agent.Account.login(data);
-    //    }catch(error){
-    //     console.log(error);
-    //    }
     }
 
     // const [values, setValues]=useState({
