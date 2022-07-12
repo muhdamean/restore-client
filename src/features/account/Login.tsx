@@ -6,23 +6,33 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Paper } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { useAppDispatch } from '../../app/store/configureStore';
 import { signInUser } from './accountSlice';
 
+interface CustomizedState {
+  from: string
+}
 
 export default function Login() {
     const navigate=useNavigate();
+    const location=useLocation().state as CustomizedState;
     const dispatch=useAppDispatch();
     const{register, handleSubmit, formState: {isSubmitting, errors, isValid}}=useForm({
         mode:'all'
     })
 
     async function submitForm(data:FieldValues){
+      try{
         await dispatch(signInUser(data));
-        navigate('/catalog');
+        // console.log(location?.pathname )
+        navigate(location?.from || '/catalog');
+      }catch(error){
+        console.log(error);
+      }
+       
     //    try{
     //         await  agent.Account.login(data);
     //    }catch(error){

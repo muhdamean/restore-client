@@ -21,6 +21,7 @@ import { fetchBasketAsync } from '../../features/basket/basketSlice';
 import Login from '../../features/account/Login';
 import Register from '../../features/account/Register';
 import { fetchCurrentUser } from '../../features/account/accountSlice';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   const dispatch=useAppDispatch(); //const {setBasket}=useStoreContext();
@@ -79,7 +80,9 @@ function App() {
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/server-error' element={<ServerError />} />
           <Route path='/basket' element={<BasketPage />} />
-          <Route path='/checkout' element={<CheckoutPage />} />
+          <Route  element={<PrivateRoute/>} >
+              <Route path='/checkout' element={<CheckoutPage />}></Route>
+          </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='*' element={<NotFound />} />
